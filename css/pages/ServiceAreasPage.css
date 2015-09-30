@@ -54,3 +54,8 @@ div.field.checkbox .middleColumn			{ width:15%; float:left; }
 .service_pages ul.level_2 ul				{ line-height:24px; }
 .service_pages ul.level_2 a					{ text-decoration:none; }
 .service_pages ul.level_2 > li > a			{ font-size:16px; }
+
+@media (max-width:450px){
+	#services_left,
+	#services_right							{ float:none; width:100%; margin-left:0; }
+}
