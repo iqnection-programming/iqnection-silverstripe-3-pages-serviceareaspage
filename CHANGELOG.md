@@ -2,6 +2,9 @@
 # Change Log
 
 
+## [1.0.0]
+- stable build
+
 ## [0.0.1.1]
 - responsive
 
