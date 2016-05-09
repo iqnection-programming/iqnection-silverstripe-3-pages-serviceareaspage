@@ -28,6 +28,8 @@ div.field.textarea label:first-child		{ position:absolute; top:12px; left:8px; t
 div.field.checkbox label					{ width:85%; float:right; }
 div.field.checkbox .middleColumn			{ width:15%; float:left; }
 
+#sap_form .Actions							{ width:100%; float:none; text-align:right !important; }
+
 #services_area:after						{ content:"."; display:block; height:0; clear:both; zoom:1; visibility:hidden; }
 .service_pages								{ width:48%; margin-left:4%; float:left; }
 .service_pages:first-child					{ margin-left:0; }
