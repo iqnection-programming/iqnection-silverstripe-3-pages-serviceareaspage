@@ -1,7 +1,7 @@
 <% if $isServiceChild %>
 
 	<% with $getPointer %>$SidebarContent<% end_with %>
-    <% with $getPointer %><h3>Our Locations</h3><div id="small_map"><% include ServiceAreasMap %><% end_with %></div>
+    <% with $getPointer %><h3>Our Location<% if $ServiceAreasLocations.Count > 1 %>s<% end_if %></h3><div id="small_map"><% include ServiceAreasMap %><% end_with %></div>
     <% if $NeedsForm %>
 		<div id="sap_form">
 			<h3>Contact Us</h3>
