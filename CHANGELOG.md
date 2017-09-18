@@ -2,6 +2,9 @@
 # Change Log
 
 
+## [1.0.1]
+- Updated Google Maps to HTTPS
+
 ## [1.0.0]
 - stable build
 
