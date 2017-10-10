@@ -354,68 +354,70 @@
 		public function onBeforeWrite()
 		{
 			parent::onBeforeWrite();
-			$BaseParentID = $this->record['ID'];
-			$BaseContent = $this->record['BaseContent'] ? $this->record['BaseContent'] : $this->original['BaseContent'];
-			$BaseMetaTitle = $this->record['BaseMetaTitle'] ? $this->record['BaseMetaTitle'] : $this->original['BaseMetaTitle'];
-			$BasePageTitle = $this->record['BasePageTitle'] ? $this->record['BasePageTitle'] : $this->original['BasePageTitle'];
-			$BaseMetaKeywords = $this->record['BaseMetaKeywords'] ? $this->record['BaseMetaKeywords'] : $this->original['BaseMetaKeywords'];
-			$BaseMetaDescription = $this->record['BaseMetaDescription'] ? $this->record['BaseMetaDescription'] : $this->original['BaseMetaDescription'];
-			$PageStructure = $this->record['PageStructure'];
-			$this->setField("BaseContent", "");
-			$this->setField("PageStructure", "");
-			$this->setField("BasePageTitle", "");
-			$this->setField("BaseMetaTitle", "");
-			$this->setField("BaseMetaKeywords", "");
-			$this->setField("BaseMetaDescription", "");
-			
-			if ($PageStructure)
+			if ($this->ID)
 			{
-				$default_pages = explode("\n", $PageStructure);
-				$curr_level_page = array();
-				$level_sequence = array(
-					1 => 0,
-					2 => 0,
-					3 => 0,
-					4 => 0,
-				);
+				$BaseParentID = $this->record['ID'];
+				$BaseContent = $this->record['BaseContent'] ? $this->record['BaseContent'] : $this->original['BaseContent'];
+				$BaseMetaTitle = $this->record['BaseMetaTitle'] ? $this->record['BaseMetaTitle'] : $this->original['BaseMetaTitle'];
+				$BasePageTitle = $this->record['BasePageTitle'] ? $this->record['BasePageTitle'] : $this->original['BasePageTitle'];
+				$BaseMetaKeywords = $this->record['BaseMetaKeywords'] ? $this->record['BaseMetaKeywords'] : $this->original['BaseMetaKeywords'];
+				$BaseMetaDescription = $this->record['BaseMetaDescription'] ? $this->record['BaseMetaDescription'] : $this->original['BaseMetaDescription'];
+				$PageStructure = $this->record['PageStructure'];
+				$this->setField("BaseContent", "");
+				$this->setField("PageStructure", "");
+				$this->setField("BasePageTitle", "");
+				$this->setField("BaseMetaTitle", "");
+				$this->setField("BaseMetaKeywords", "");
+				$this->setField("BaseMetaDescription", "");
 				
-				foreach ($default_pages as $page)
-				{					
-					$page_name = trim($page);
+				if ($PageStructure)
+				{
+					$default_pages = explode("\n", $PageStructure);
+					$curr_level_page = array();
+					$level_sequence = array(
+						1 => 0,
+						2 => 0,
+						3 => 0,
+						4 => 0,
+					);
+					
+					foreach ($default_pages as $page)
+					{					
+						$page_name = trim($page);
+							
+						$level = 1;
+						while (preg_match("/^~/", $page_name))
+						{
+							$page_name = substr($page_name, 1);
+							$level++;
+						}
+						$level_sequence[$level] += 10;
+	
+						$new_page = new ServiceAreasChildPage();
 						
-					$level = 1;
-					while (preg_match("/^~/", $page_name))
-					{
-						$page_name = substr($page_name, 1);
-						$level++;
+						$BasePageTitle = $BasePageTitle ? $BasePageTitle : $page_name;
+						$new_page->Title = str_replace("{NAME}",$page_name,$BasePageTitle);
+						$new_page->MenuTitle = $page_name;
+						$new_page->Content = str_replace("{NAME}",$page_name,$BaseContent);
+						$new_page->MetaTitle = str_replace("{NAME}",$page_name,$BaseMetaTitle);
+						$new_page->MetaKeywords = str_replace("{NAME}",$page_name,$BaseMetaKeywords);
+						$new_page->MetaDescription = str_replace("{NAME}",$page_name,$BaseMetaDescription);
+						$new_page->Status = 'Published';
+						$new_page->Sort = $level_sequence[$level];
+						if ($level > 1 && $curr_level_page[($level-1)])
+						{
+							$parent = $curr_level_page[($level-1)];
+							$new_page->ParentID = $parent->ID;
+						} else {
+							$new_page->ParentID = $BaseParentID;
+						}
+						$new_page->write();
+						$new_page->writeToStage('Stage');
+						$new_page->doPublish();
+						$new_page->flushCache();
+						
+						$curr_level_page[$level] = $new_page;
 					}
-					$level_sequence[$level] += 10;
-
-					$new_page = new ServiceAreasChildPage();
-					
-					$BasePageTitle = $BasePageTitle ? $BasePageTitle : $page_name;
-					$new_page->ParentID = $ParentID;
-					$new_page->Title = str_replace("{NAME}",$page_name,$BasePageTitle);
-					$new_page->MenuTitle = $page_name;
-					$new_page->Content = str_replace("{NAME}",$page_name,$BaseContent);
-					$new_page->MetaTitle = str_replace("{NAME}",$page_name,$BaseMetaTitle);
-					$new_page->MetaKeywords = str_replace("{NAME}",$page_name,$BaseMetaKeywords);
-					$new_page->MetaDescription = str_replace("{NAME}",$page_name,$BaseMetaDescription);
-					$new_page->Status = 'Published';
-					$new_page->Sort = $level_sequence[$level];
-					if ($level > 1 && $curr_level_page[($level-1)])
-					{
-						$parent = $curr_level_page[($level-1)];
-						$new_page->ParentID = $parent->ID;
-					} else {
-						$new_page->ParentID = $BaseParentID;
-					}
-					$new_page->write();
-					$new_page->writeToStage('Stage');
-					$new_page->doPublish();
-					$new_page->flushCache();
-					
-					$curr_level_page[$level] = $new_page;
 				}
 			}
 		}
