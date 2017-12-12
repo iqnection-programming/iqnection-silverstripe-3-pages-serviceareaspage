@@ -528,7 +528,7 @@ address_objects['.$Count.'-1] = {
 			$submission->PageURL = $_SERVER['HTTP_REFERER'];
 			$submission->Date = SS_Datetime::now();
 			$submission->write();
-						
+			$this->extend('onAfterSubmit',$submission);			
 			// send email to this address if specified
 			$emails = $SAPage->FormRecipients();
 			
