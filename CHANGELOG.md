@@ -1,6 +1,9 @@
-## Package: iqnection-silverstripe-3-pages-serviceareaspage
+## Package: iqnection-silverstripe-pages-serviceareaspage
 # Change Log
 
+
+## [2.0.0]
+- Updated for SilverStripe 4
 
 ## [1.0.1]
 - Updated Google Maps to HTTPS

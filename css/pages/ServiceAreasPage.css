@@ -33,9 +33,9 @@ div.field.checkbox .middleColumn			{ width:15%; float:left; }
 #services_area:after						{ content:"."; display:block; height:0; clear:both; zoom:1; visibility:hidden; }
 .service_pages								{ width:48%; margin-left:4%; float:left; }
 .service_pages:first-child					{ margin-left:0; }
-.service_pages ul.level_1					{ list-style:none; }
-.service_pages ul.level_1 > li				{ margin:0 0 20px; }
-.service_pages ul.level_1 > li > a 			{ text-decoration:none; font-size:20px; font-weight:bold; padding:7px; display:block; margin-bottom:5px; border-bottom:3px #d6d6d6 double;
+.service_pages ul.level-1					{ list-style:none; }
+.service_pages ul.level-1 > li				{ margin:0 0 20px; }
+.service_pages ul.level-1 > li > a 			{ text-decoration:none; font-size:20px; font-weight:bold; padding:7px; display:block; margin-bottom:5px; border-bottom:3px #d6d6d6 double;
 											background: #f3f3f3; /* Old browsers */
 											background: -moz-linear-gradient(top,  #f3f3f3 0%, #e8e8e8 100%); /* FF3.6+ */
 											background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#e8e8e8)); /* Chrome,Safari4+ */
@@ -47,17 +47,17 @@ div.field.checkbox .middleColumn			{ width:15%; float:left; }
 											text-shadow: 1px 1px 0px #ffffff;
 											filter: dropshadow(color=#ffffff, offx=1, offy=1);
 											}
-.service_pages ul.level_1 > li > a:hover	{ border-color:#c1c1c1; }											
-.service_pages ul.level_1 > li *:last-child	{ margin-bottom:0; }
+.service_pages ul.level-1 > li > a:hover	{ border-color:#c1c1c1; }											
+.service_pages ul.level-1 > li *:last-child	{ margin-bottom:0; }
 
-.service_pages ul.level_2					{ list-style:square; }
-.service_pages ul.level_2 ul				{ list-style:circle; }
-.service_pages ul.level_2,
-.service_pages ul.level_2 ul				{ line-height:24px; }
-.service_pages ul.level_2 a					{ text-decoration:none; }
-.service_pages ul.level_2 > li > a			{ font-size:16px; }
+.service_pages ul.level-2					{ list-style:square; }
+.service_pages ul.level-2 ul				{ list-style:circle; }
+.service_pages ul.level-2,
+.service_pages ul.level-2 ul				{ line-height:24px; }
+.service_pages ul.level-2 a					{ text-decoration:none; }
+.service_pages ul.level-2 > li > a			{ font-size:16px; }
 
-@media (max-width:450px){
+@media (max-width:500px){
 	#services_left,
 	#services_right							{ float:none; width:100%; margin-left:0; }
 }

@@ -6,38 +6,40 @@ var address_objects = [];
 $(document).ready(function(){
 	
 	$('input, option, textarea').focus(function(){
-		$("label[for="+$(this).attr('id')+"]").hide();
+		$("label[for="+$(this).attr('id')+"].left").hide();
 	});
 	
 	$('input, option, textarea').blur(function(){
-		if(!$(this).val())$("label[for="+$(this).attr('id')+"]").show();
+		if(!$(this).val())$("label[for="+$(this).attr('id')+"].left").show();
 	});
 	
-	$('#Form_ServiceAreasForm').validate({
+	$('#Form_ServiceAreasPageForm').validate({
 		useNospam: true	
 	});
 });
 
 $(window).load(function(){
-	var myOptions = {
-	  zoom: 0,
-	  zoomControl:false,
-	  streetViewControl:false,
-	  mapTypeControl:false,
-	  mapTypeId: google.maps.MapTypeId.$MapType
-	};
-	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-	bounds = new google.maps.LatLngBounds();
-	for(var i = 0; i < address_objects.length; i++){
-		addMarker(address_objects[i]);	
+	if($("#map_canvas").length){
+		var myOptions = {
+		  zoom: 0,
+		  zoomControl:false,
+		  streetViewControl:false,
+		  mapTypeControl:false,
+		  mapTypeId: google.maps.MapTypeId.$MapType
+		};
+		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		bounds = new google.maps.LatLngBounds();
+		for(var i = 0; i < address_objects.length; i++){
+			addMarker(address_objects[i]);	
+		}
+		map.fitBounds(bounds);
+		//If the map is currently zoomed in close than we\'d like, pull it back.
+		//If the map is right at it\'s bounds, pull it back by 1;
+		google.maps.event.addListenerOnce(map, "bounds_changed", function() { 
+			var new_zoom = this.getZoom() > 12 ? 12 : this.getZoom()-1;
+			map.setZoom(new_zoom); 
+		});
 	}
-	map.fitBounds(bounds);
-	//If the map is currently zoomed in close than we\'d like, pull it back.
-	//If the map is right at it\'s bounds, pull it back by 1;
-	google.maps.event.addListenerOnce(map, "bounds_changed", function() { 
-		var new_zoom = this.getZoom() > 12 ? 12 : this.getZoom()-1;
-		map.setZoom(new_zoom); 
-	});
 });
 
 function addMarker(object) {
