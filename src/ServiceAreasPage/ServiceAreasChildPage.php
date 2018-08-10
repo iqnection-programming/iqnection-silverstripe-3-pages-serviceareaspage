@@ -1,7 +1,11 @@
 <?php
 
+namespace IQnection\ServiceAreasPage;
+
 class ServiceAreasChildPage extends ServiceAreasPage
 {
+	private static $table_name = 'ServiceAreasChildPage';
+	
 	private static $allowed_children = [
 		ServiceAreasChildPage::class
 	];

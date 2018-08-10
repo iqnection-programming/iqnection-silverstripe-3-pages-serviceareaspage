@@ -1,5 +1,7 @@
 <?php
 
+namespace IQnection\ServiceAreasPage;
+
 class ServiceAreasChildPageController extends ServiceAreasPageController
 {
 	public function PageCSS()

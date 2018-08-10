@@ -1,11 +1,13 @@
 <?php
 
+namespace IQnection\ServiceAreasPage;
+
 use SilverStripe\Forms;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Config\Config;
-use IqBasePages\FormUtilities\FormUtilities;
+use IQnection\FormUtilities\FormUtilities;
 
-class ServiceAreasPageController extends PageController
+class ServiceAreasPageController extends \PageController
 {
 	private static $allowed_actions = [
 		"ServiceAreasPageForm",
@@ -126,7 +128,7 @@ class ServiceAreasPageController extends PageController
 		
 		foreach($emails as $email)
 		{
-			FormUtilities::SendSSEmail($this, $email->Email, $data,$submission);
+			FormUtilities::SendSSEmail($this, $email->Email, $data,$submission,$this->FromEmail);
 		}
 		
 		// redirect to our thank you page

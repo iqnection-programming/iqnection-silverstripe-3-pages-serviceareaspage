@@ -13,9 +13,17 @@
 	"require": {
 		"silverstripe/framework": "^4.0",
 		"undefinedoffset/sortablegridfield": "*",
-		"iqnection-pages/basepages":"*"
+		"iqnection-pages/basepages":"^2.1"
 	},
 	"extra": {
-		"installer-name": "iq-serviceareaspage"
+		"expose": [
+			"css",
+			"javascript"
+		]
+	},
+	"autoload": {
+		"psr-4": {
+			"IQnection\\ServiceAreasPage\\": "app/src/"
+		}
 	}
 }

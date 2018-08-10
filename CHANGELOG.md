@@ -1,6 +1,8 @@
 ## Package: iqnection-silverstripe-pages-serviceareaspage
 # Change Log
 
+## [2.1.0]
+- Updated for SilverStripe 4.1
 
 ## [2.0.1]
 - bug fix

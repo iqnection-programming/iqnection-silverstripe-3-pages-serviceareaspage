@@ -1,11 +1,15 @@
 <?php
 
+namespace IQnection\ServiceAreasPage\Model;
+
 use SilverStripe\ORM;
 use SilverStripe\Forms;
 
 // model to save a form submission into the database
 class ServiceAreasPageFormSubmission extends ORM\DataObject
 {
+	private static $table_name = 'ServiceAreasPageFormSubmission';
+	
 	private static $db = [
 		"FirstName" => "Varchar(255)", 
 		"LastName" => "Varchar(255)", 
@@ -21,7 +25,7 @@ class ServiceAreasPageFormSubmission extends ORM\DataObject
 	];
 	
 	private static $has_one = [
-		"ServiceAreasPage" => ServiceAreasPage::class
+		"ServiceAreasPage" => \IQnection\ServiceAreasPage\ServiceAreasPage::class
 	];
 	
 	private static $summary_fields = [

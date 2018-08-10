@@ -6,6 +6,8 @@ use SilverStripe\Core\Config\Config;
 
 class ServiceAreasPageLocation extends DataObject
 {
+	private static $table_name = 'ServiceAreasPageLocation';
+	
 	private static $db = [
 		"SortOrder" => "Int",
 		"Title" => "Varchar(255)",
@@ -15,7 +17,7 @@ class ServiceAreasPageLocation extends DataObject
 	];
 			
 	private static $has_one = [
-		"ContactPage" => ServiceAreasPage::class
+		"ContactPage" => \IQnection\ServiceAreasPage\ServiceAreasPage::class
 	];
 	
 	private static $summary_fields = [

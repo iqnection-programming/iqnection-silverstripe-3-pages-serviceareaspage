@@ -1,12 +1,17 @@
 <?php
 
+namespace IQnection\ServiceAreasPage;
+
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms;
 use SilverStripe\Core\Injector\Injector;
 use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
+use IQnection\FormPage\FormRecipient;
 
-class ServiceAreasPage extends Page
+class ServiceAreasPage extends \Page
 {
+	private static $table_name = 'ServiceAreasPage';
+	
 	private static $db = [
 		"SidebarBottom" => "HTMLText",
 		"ThankYouText" => "HTMLText",
@@ -26,7 +31,8 @@ class ServiceAreasPage extends Page
 		'BaseMetaTitle' => 'Varchar(255)',
 		'BaseMetaKeywords' => 'Text',
 		'BaseMetaDescription' => 'Text',
-		'BasePageTitle' => 'Varchar(255)'
+		'BasePageTitle' => 'Varchar(255)',
+		"FromEmail" => 'Varchar(255)',
 	];
 	
 	private static $defaults = [
@@ -39,9 +45,9 @@ class ServiceAreasPage extends Page
 	];
 	
 	private static $has_many = [
-		"ServiceAreasPageLocations" => ServiceAreasPageLocation::class,
+		"ServiceAreasPageLocations" => Model\ServiceAreasPageLocation::class,
 		"FormRecipients" => FormRecipient::class,
-		"ServiceAreasPageFormSubmissions" => ServiceAreasPageFormSubmission::class
+		"ServiceAreasPageFormSubmissions" => Model\ServiceAreasPageFormSubmission::class
 	];
 	
 	private static $owns = [
@@ -111,6 +117,7 @@ class ServiceAreasPage extends Page
 		$exportBtn->setExportColumns($ExportFields);
 		
 		$fields->addFieldToTab("Root.FormControls.Recipients", Forms\LiteralField::create("Desc1", "<h3>Forms will be submitted to all addresses below.</h3><br>"));
+		$fields->addFieldToTab('Root.FormControls.Recipients', Forms\EmailField::create('FromEmail','Notification From Email') );
 		$fields->addFieldToTab('Root.FormControls.Recipients', Forms\GridField\GridField::create(
 			'FormRecipients',
 			'Recipients',
